@@ -6,30 +6,34 @@
 </head>
 <body>
 <h1>NOKIA</h1><br>
-<h3 id="txtTrangThaiOnOffNokia"></h3>
-<input type="button" value="Mở khóa" id="btnOnOffNokia" onclick="moNguonDienThoaiNokia();" style="width: 150px;">
+<h3 id="txtTrangThaiOnOffNokia">OFF</h3>
+<input type="button" value="Mở khóa" id="btnOnOffNokia" onclick="moNguonDienThoai(nokia ,'txtTrangThaiOnOffNokia' , 'btnNokia','btnOnOffNokia' );" style="width: 150px;">
 <input type="button" value="Xem trạng thái pin" onclick="xemTrangThaiPin(nokia);" style="width: 150px;">
-<input type="button" id="btnXacPinNokia" value="Sạc PIN" onclick="XacPin(nokia);" disabled style="width: 150px;">
+<input type="button" class="btnNokia" value="Sạc PIN" onclick="XacPin(nokia);" disabled style="width: 150px;">
 <br>
-<input type="button" id="btnNhanTinNokia" value="Nhắn tin" onclick="NhanTin(nokia, iphone);"
+<input type="button" class="btnNokia" value="Nhắn tin" onclick="NhanTin(nokia, iphone);"
        style="margin-top: 10px; width: 150px" disabled>
-<input type="button" id="btnDocTinNokia" value="Đọc tin" onclick="DocTinNokia();" disabled style="width: 150px">
-<input type="button" id="btnXemTinNhanDaGuiNokia" value="Tin nhắn đã gửi" onclick="TinNhanDaGuiNokia();" disabled
+<input type="button" class="btnNokia" value="Đọc tin" onclick="DocTin(nokia, 'txtShowNokia');" disabled
+       style="width: 150px">
+<input type="button" class="btnNokia" value="Tin nhắn đã gửi"
+       onclick="TinNhanDaGui(nokia ,'txtShowNokia' );" disabled
        style="width: 150px;">
 <br>
 <h id="txtShowNokia"></h>
 <hr style="width: 750px">
 <hr style="width: 750px">
 <h1>IPHONE</h1><br>
-<h3 id="txtTrangThaiOnOffIphone"></h3>
-<input type="button" value="Mở khóa" id="btnOnOffIphone" onclick="moNguonDienThoaiIphone();" style="width: 150px;">
+<h3 id="txtTrangThaiOnOffIphone">OFF</h3>
+<input type="button" value="Mở khóa" id="btnOnOffIphone" onclick="moNguonDienThoai(iphone,'txtTrangThaiOnOffIphone','btnIphone','btnOnOffIphone',);" style="width: 150px;">
 <input type="button" value="Xem trạng thái pin" onclick="xemTrangThaiPin(iphone);" style="width: 150px;">
-<input type="button" id="btnXacPinIphone" value="Sạc PIN" onclick="XacPin(iphone);" disabled style="width: 150px;">
+<input type="button" class="btnIphone" value="Sạc PIN" onclick="XacPin(iphone);" disabled style="width: 150px;">
 <br>
-<input type="button" id="btnNhanTinIphone" value="Nhắn tin" onclick="NhanTin(iphone , nokia);"
+<input type="button" class="btnIphone" value="Nhắn tin" onclick="NhanTin(iphone , nokia);"
        style="margin-top: 10px ; width: 150px" disabled>
-<input type="button" id="btnDocTinIphone" value="Đọc tin" onclick="DocTinIphone();" disabled style="width: 150px;">
-<input type="button" id="btnXemTinNhanDaGuiIphone" value="Tin nhắn đã gửi" onclick="TinNhanDaGuiIphone();" disabled
+<input type="button" class="btnIphone" value="Đọc tin" onclick="DocTin(iphone ,'txtShowIphone' );" disabled
+       style="width: 150px;">
+<input type="button" class="btnIphone" value="Tin nhắn đã gửi"
+       onclick="TinNhanDaGui(iphone,'txtShowIphone' );" disabled
        style="width: 150px;">
 
 <br>
@@ -39,13 +43,8 @@
         this.nameMay;
         this.ttPin;
         this.ttDienThoai;
-        // //Có một vùng nhớ dùng để lưu tin nhắn đang soạn thảo.
         this.messSoanThao;
-
-        //Có một vùng nhớ dùng để lưu tin nhắn đã gửi.
         this.arrMessGui = [];
-
-        // Có một vùng nhớ dùng để lưu tin nhắn trong hộp thư đến.
         this.arrMessNhan = [];
 
         this.guiTinNhan = guiTinNhan;
@@ -89,19 +88,16 @@
         this.ttPin = this.ttPin - count;
     }
 
-    //Có chức năng nhận tin nhắn từ một chiếc mobile khác.
     function getMess(str) {
         this.arrMessNhan.push(str);
     }
 
-    //Có chức năng gửi tin nhắn tới một chiếc mobile khác.
-    function guiTinNhan(obj2, str) {
+    function guiTinNhan(objNhan, str) {
         this.messSoanThao = str;
-        obj2.arrMessNhan.push(this.messSoanThao);
+        objNhan.arrMessNhan.push(this.messSoanThao);
         this.arrMessGui.push(this.messSoanThao);
     }
 
-    //Có chức năng xem tin trong hộp thư đến.
     function docTinNhan() {
         let htmlStr = "<br>";
         for (let i = 0; i < this.arrMessNhan.length; i++) {
@@ -124,122 +120,65 @@
     let tenMay2 = "iphone";
     let nokia = new MobiePhone();
     let iphone = new MobiePhone();
-    let btnNhanTinNokia = document.getElementById("btnNhanTinNokia");
-    let btnDocTinNokia = document.getElementById("btnDocTinNokia");
-    let btnNhanTinIphone = document.getElementById("btnNhanTinIphone");
-    let btnDocTinIphone = document.getElementById("btnDocTinIphone");
-    let txtShowNokia = document.getElementById("txtShowNokia");
-    let txtShowIphone = document.getElementById("txtShowIphone");
-    let btnXemTinNhanDaGuiNokia = document.getElementById("btnXemTinNhanDaGuiNokia");
-    let btnXemTinNhanDaGuiIphone = document.getElementById("btnXemTinNhanDaGuiIphone");
-    let btnOnOffNokia = document.getElementById("btnOnOffNokia");
-    let btnOnOffIphone = document.getElementById("btnOnOffIphone");
-    let btnXacPinNokia = document.getElementById("btnXacPinNokia");
-    let btnXacPinIphone = document.getElementById("btnXacPinIphone");
-    let txtTrangThaiOnOffNokia = document.getElementById("txtTrangThaiOnOffNokia");
-    let txtTrangThaiOnOffIphone = document.getElementById("txtTrangThaiOnOffIphone");
-    let dem1 = 0, dem2 = 0;
-    txtTrangThaiOnOffNokia.innerHTML = "<br>OFF";
-    txtTrangThaiOnOffIphone.innerHTML = "<br>OFF";
+    let dem = 0;
     nokia.setPinOrigin(100);
     iphone.setPinOrigin(100);
     nokia.setName(tenMay1);
     iphone.setName(tenMay2);
 
-    function DocTinIphone() {
-        txtShowIphone.innerText = "";
-        txtShowIphone.innerHTML = "<br>Tin nhắn đến <br>" + iphone.docTinNhan();
-        iphone.setPin(1);
+    function DocTin(obj, idTxtHienThi) {
+        document.getElementById(idTxtHienThi).innerText = "";
+        document.getElementById(idTxtHienThi).innerHTML = "<br>Tin nhắn đến <br>" + obj.docTinNhan();
+        obj.setPin(1);
     }
 
-    function DocTinNokia() {
-        txtShowNokia.innerText = "";
-        txtShowNokia.innerHTML = "<br>Tin nhắn đến <br>" + nokia.docTinNhan();
-        nokia.setPin(1);
-    }
 
     function xemTrangThaiPin(obj) {
         alert(obj.getPin() + "%");
     }
 
-    function moNguonDienThoaiNokia() {
-        if (dem1 % 2 == 0) {
-            txtTrangThaiOnOffNokia.innerText = "";
-            nokia.setTrangThaiDienThoai(false);
-            btnNhanTinNokia.disabled = nokia.getTrangThaiDienThoai();
-            btnDocTinNokia.disabled = nokia.getTrangThaiDienThoai();
-            btnXemTinNhanDaGuiNokia.disabled = nokia.getTrangThaiDienThoai();
-            btnXacPinNokia.disabled = nokia.getTrangThaiDienThoai();
-            nokia.setPin(1);
-            dem1++;
-            btnOnOffNokia.value = "Khóa";
-            txtTrangThaiOnOffNokia.innerHTML = "<br>ON";
+    function moNguonDienThoai(obj ,idTxtOnOff, className , idBtnOnOff) {
+        if (dem % 2 == 0) {
+            document.getElementById(idTxtOnOff).innerText = "";
+            obj.setTrangThaiDienThoai(false);
+            let arr = document.getElementsByClassName(className);
+            for (let i = 0 ; i < arr.length ; i++){
+                arr[i].disabled = obj.getTrangThaiDienThoai();
+            }
+            obj.setPin(1);
+            dem++;
+            document.getElementById(idBtnOnOff).value = "Khóa";
+            document.getElementById(idTxtOnOff).innerHTML = "<br>ON";
         } else {
-            txtTrangThaiOnOffNokia.innerText = "";
-            nokia.setTrangThaiDienThoai(true);
-            btnNhanTinNokia.disabled = nokia.getTrangThaiDienThoai();
-            btnDocTinNokia.disabled = nokia.getTrangThaiDienThoai();
-            btnXemTinNhanDaGuiNokia.disabled = nokia.getTrangThaiDienThoai();
-            btnXacPinNokia.disabled = nokia.getTrangThaiDienThoai();
-            nokia.setPin(1);
-            dem1++;
-            btnOnOffNokia.value = "Mở khóa";
-            txtTrangThaiOnOffNokia.innerHTML = "<br>OFF";
-
-        }
-
-
-    }
-
-    function moNguonDienThoaiIphone() {
-        if (dem2 % 2 == 0) {
-            txtTrangThaiOnOffIphone.innerText = "";
-            iphone.setTrangThaiDienThoai(false);
-            btnNhanTinIphone.disabled = iphone.getTrangThaiDienThoai();
-            btnDocTinIphone.disabled = iphone.getTrangThaiDienThoai();
-            btnXemTinNhanDaGuiIphone.disabled = iphone.getTrangThaiDienThoai();
-            btnXacPinIphone.disabled = iphone.getTrangThaiDienThoai();
-            iphone.setPin(1);
-            dem2++;
-            btnOnOffIphone.value = "Khóa";
-            txtTrangThaiOnOffIphone.innerHTML = "<br>ON";
-
-        } else {
-            txtTrangThaiOnOffIphone.innerText = "";
-            iphone.setTrangThaiDienThoai(true);
-            btnNhanTinIphone.disabled = iphone.getTrangThaiDienThoai();
-            btnDocTinIphone.disabled = iphone.getTrangThaiDienThoai();
-            btnXemTinNhanDaGuiIphone.disabled = iphone.getTrangThaiDienThoai();
-            btnXacPinIphone.disabled = iphone.getTrangThaiDienThoai();
-            iphone.setPin(1);
-            dem2++;
-            btnOnOffIphone.value = "Mở khóa";
-            txtTrangThaiOnOffIphone.innerHTML = "<br>OFF";
+            document.getElementById(idTxtOnOff).innerText = "";
+            obj.setTrangThaiDienThoai(true);
+            let arr = document.getElementsByClassName(className);
+            for (let i = 0 ; i < arr.length ; i++){
+                arr[i].disabled = obj.getTrangThaiDienThoai();
+            }
+            obj.setPin(1);
+            dem++;
+            document.getElementById(idBtnOnOff).value = "Mở khóa";
+            document.getElementById(idTxtOnOff).innerHTML = "<br>OFF";
         }
     }
 
-    function TinNhanDaGuiNokia() {
-        txtShowNokia.innerText = "";
-        txtShowNokia.innerHTML = "<br>Tin nhắn đã gửi<br>" + nokia.docTinNhanDaGui();
-        nokia.setPin(1);
+    function TinNhanDaGui(obj, idTxtHienThi) {
+        document.getElementById(idTxtHienThi).innerText = "";
+        document.getElementById(idTxtHienThi).innerHTML = "<br>Tin nhắn đã gửi<br>" + obj.docTinNhanDaGui();
+        obj.setPin(1);
     }
 
-    function TinNhanDaGuiIphone() {
-        txtShowIphone.innerText = "";
-        txtShowIphone.innerHTML = "<br>Tin nhắn đã gửi<br>" + iphone.docTinNhanDaGui();
-        iphone.setPin(1);
-    }
-
-    function NhanTin(obj1 , obj2) {
+    function NhanTin(objGui, objNhan) {
         let mess = prompt("mời bạn nhập vào tin nhắn muốn gửi đến");
-        obj1.guiTinNhan(obj2, mess);
+        objGui.guiTinNhan(objNhan, mess);
         obj1.setPin(1);
     }
+
     function XacPin(obj) {
         alert("Đã sạc !");
         obj.setPinOrigin(100);
     }
-
 </script>
 </body>
 </html>
