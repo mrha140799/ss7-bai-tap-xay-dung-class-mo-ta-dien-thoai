@@ -7,11 +7,11 @@
 <body>
 <h1>NOKIA</h1><br>
 <h3 id="txtTrangThaiOnOffNokia"></h3>
-<input type="button" value="Xem trạng thái pin" onclick="xemTrangThaiPinNKA();" style="width: 150px;">
-<input type="button" id="btnXacPinNokia" value="Sạc PIN" onclick="XacPinNokia();" disabled style="width: 150px;">
 <input type="button" value="Mở khóa" id="btnOnOffNokia" onclick="moNguonDienThoaiNokia();" style="width: 150px;">
+<input type="button" value="Xem trạng thái pin" onclick="xemTrangThaiPin(nokia);" style="width: 150px;">
+<input type="button" id="btnXacPinNokia" value="Sạc PIN" onclick="XacPin(nokia);" disabled style="width: 150px;">
 <br>
-<input type="button" id="btnNhanTinNokia" value="Nhắn tin" onclick="NhanTinNokia();"
+<input type="button" id="btnNhanTinNokia" value="Nhắn tin" onclick="NhanTin(nokia, iphone);"
        style="margin-top: 10px; width: 150px" disabled>
 <input type="button" id="btnDocTinNokia" value="Đọc tin" onclick="DocTinNokia();" disabled style="width: 150px">
 <input type="button" id="btnXemTinNhanDaGuiNokia" value="Tin nhắn đã gửi" onclick="TinNhanDaGuiNokia();" disabled
@@ -22,12 +22,11 @@
 <hr style="width: 750px">
 <h1>IPHONE</h1><br>
 <h3 id="txtTrangThaiOnOffIphone"></h3>
-<input type="button" value="Xem trạng thái pin" onclick="xemTrangThaiPinIphone();" style="width: 150px;">
-<input type="button" id="btnXacPinIphone" value="Sạc PIN" onclick="XacPinIphone();" disabled style="width: 150px;">
 <input type="button" value="Mở khóa" id="btnOnOffIphone" onclick="moNguonDienThoaiIphone();" style="width: 150px;">
-
+<input type="button" value="Xem trạng thái pin" onclick="xemTrangThaiPin(iphone);" style="width: 150px;">
+<input type="button" id="btnXacPinIphone" value="Sạc PIN" onclick="XacPin(iphone);" disabled style="width: 150px;">
 <br>
-<input type="button" id="btnNhanTinIphone" value="Nhắn tin" onclick="NhanTinIphone();"
+<input type="button" id="btnNhanTinIphone" value="Nhắn tin" onclick="NhanTin(iphone , nokia);"
        style="margin-top: 10px ; width: 150px" disabled>
 <input type="button" id="btnDocTinIphone" value="Đọc tin" onclick="DocTinIphone();" disabled style="width: 150px;">
 <input type="button" id="btnXemTinNhanDaGuiIphone" value="Tin nhắn đã gửi" onclick="TinNhanDaGuiIphone();" disabled
@@ -60,8 +59,6 @@
         this.setTrangThaiDienThoai = setTrangThaiDienThoai;
         this.getTrangThaiDienThoai = getTrangThaiDienThoai;
         this.docTinNhanDaGui = docTinNhanDaGui;
-
-
     }
 
     function setName(name) {
@@ -149,14 +146,6 @@
     nokia.setName(tenMay1);
     iphone.setName(tenMay2);
 
-
-    function NhanTinNokia() {
-        let mess = prompt("mời bạn nhập vào tin nhắn muốn gửi đến");
-        nokia.guiTinNhan(iphone, mess);
-        nokia.setPin(1);
-
-    }
-
     function DocTinIphone() {
         txtShowIphone.innerText = "";
         txtShowIphone.innerHTML = "<br>Tin nhắn đến <br>" + iphone.docTinNhan();
@@ -169,12 +158,8 @@
         nokia.setPin(1);
     }
 
-    function xemTrangThaiPinNKA() {
-        alert(nokia.getPin() + "%");
-    }
-
-    function xemTrangThaiPinIphone() {
-        alert(iphone.getPin() + "%");
+    function xemTrangThaiPin(obj) {
+        alert(obj.getPin() + "%");
     }
 
     function moNguonDienThoaiNokia() {
@@ -245,21 +230,16 @@
         iphone.setPin(1);
     }
 
-    function NhanTinIphone() {
+    function NhanTin(obj1 , obj2) {
         let mess = prompt("mời bạn nhập vào tin nhắn muốn gửi đến");
-        iphone.guiTinNhan(nokia, mess);
-        iphone.setPin(1);
+        obj1.guiTinNhan(obj2, mess);
+        obj1.setPin(1);
+    }
+    function XacPin(obj) {
+        alert("Đã sạc !");
+        obj.setPinOrigin(100);
     }
 
-    function XacPinNokia() {
-        alert("Đã sạc !");
-        nokia.setPinOrigin(100);
-    }
-
-    function XacPinIphone() {
-        alert("Đã sạc !");
-        iphone.setPinOrigin(100);
-    }
 </script>
 </body>
 </html>
